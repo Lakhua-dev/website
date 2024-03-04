@@ -31,7 +31,7 @@ This repository contains the sources of JSON Schema website:
 #### Requirements
 Use the following tools to set up the project:
 
-Node.js v20.9.0+
+Node.js v20.9.0+ 
 
 #### Cloning the repository
 This project uses git submodules, so you will need to run the following commands to fully clone the repo.

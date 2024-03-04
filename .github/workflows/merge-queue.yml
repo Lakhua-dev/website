@@ -16,6 +16,14 @@ jobs:
         with:
           node-version: '20'   
 
+      - name: Cache-Dependencies-Yarn
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+            
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -27,7 +35,7 @@ jobs:
 
       - name: Run typecheck
         run: yarn run typecheck
-        
+
   Build:
       runs-on: ubuntu-latest
       steps:
@@ -38,6 +46,22 @@ jobs:
           uses: actions/setup-node@v4
           with:
             node-version: '20'   
+        
+        - name: Get yarn cache directory path
+          id: yarn-cache-dir-path
+          run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+    
+        - uses: actions/cache@v3
+          id: yarn-cache
+          with:
+            path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+            restore-keys: |
+              ${{ runner.os }}-yarn-
+    
+        - name: Install dependencies
+          if: steps.yarn-cache.outputs.cache-hit != 'true'
+          run: yarn install
 
         - name: Initialize and update submodule
           run: git submodule update --init --recursive
@@ -47,12 +71,9 @@ jobs:
 
         - name: Start App Locally
           run: yarn dev &
-          
-        - name: Wait for server to start
-          run: sleep 20
-      
+
+        - name: Sleep for 10 second
+          run: sleep 10
+
         - name: Build
           run: yarn build
-
-
-

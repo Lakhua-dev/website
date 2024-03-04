@@ -56,12 +56,8 @@ jobs:
           if: steps.yarn-cache.outputs.cache-hit != 'true'
           run: yarn install
 
-
         - name: Initialize and update submodule
           run: git submodule update --init --recursive
-
-        - name: Install dependencies
-          run: yarn install --frozen-lockfile
 
         - name: Start App Locally
           run: yarn dev &

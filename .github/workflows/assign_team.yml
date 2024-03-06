@@ -7,7 +7,6 @@ on:
 jobs:
   assign_team:
     runs-on: ubuntu-latest
-
     steps:
     
     - name: Install dependencies

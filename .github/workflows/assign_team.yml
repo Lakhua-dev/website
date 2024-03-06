@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
     - name: Install dependencies
       run: npm install @octokit/core@5.1.0
         
@@ -38,6 +37,5 @@ jobs:
                 'X-GitHub-Api-Version': '2022-11-28'
               }
             })
-
-            console.log(data)
+            
 

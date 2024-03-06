@@ -16,14 +16,14 @@ jobs:
     - name: Assign Team
       uses: actions/github-script@v7
       env:
-        AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
       with:
         script: |
             const Octokit = require('@octokit/core').Octokit;
             const octokit = new Octokit({
               request: { fetch: fetch,},
-              auth: process.env.AUTH_TOKEN,
+              auth: process.env.GITHUB_TOKEN,
             })
             
             await octokit.request('POST /repos/{orgs}/{repo}/pulls/{pull_number}/requested_reviewers', {

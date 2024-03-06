@@ -18,6 +18,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
+        REPO_NAME: ${{ github.event.repository.name }}
+        ORG_NAME: ${{ github.event.repository.owner.login }}
       with:
         script: |
             const Octokit = require('@octokit/core').Octokit;
@@ -27,8 +29,8 @@ jobs:
             })
             
             await octokit.request('POST /repos/{orgs}/{repo}/pulls/{pull_number}/requested_reviewers', {
-              orgs: 'Lakhua-dev',
-              repo: 'website',
+              orgs: process.env.ORG_NAME,
+              repo: process.env.REPO_NAME,
               pull_number: process.env.PULL_REQUEST_NUMBER,
               team_reviewers: [
                 'web-team'

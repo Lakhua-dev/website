@@ -189,7 +189,7 @@ Thanks goes to these wonderful people who contributed to this website:
     <a href="https://www.youtube.com/@JSONSchemaOrgOfficial" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" alt="JSON Schema YouTube" height="30" width="40" /></a>
 </p>
 
-## Inspired by
+## Inspired by Test 
 This document has been inspired by [AsyncAPI website README.md](https://github.com/asyncapi/website/blob/master/README.md).
 
 ## License

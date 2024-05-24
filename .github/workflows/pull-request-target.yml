@@ -2,11 +2,10 @@ name: Welcome First-Time Contributors
 
 on:
   pull_request_target:
-    types: [closed]
+    types: [closed, opened]
 
 jobs:
   welcome:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Check if it's the first PR
@@ -21,7 +20,8 @@ jobs:
               creator: context.actor
             });
             const firstPr = prs.length === 1;
-            return firstPr;
+            console.log(prs.length);
+            return true;
 
       - name: Post Welcome Message
         if: steps.check_first_pr.outputs.result == 'true'

@@ -1,0 +1,36 @@
+name: Welcome First-Time Contributors
+
+on:
+  pull_request_target:
+    types: [closed]
+
+jobs:
+  welcome:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if it's the first PR
+        id: check_first_pr
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'closed',
+              creator: context.actor
+            });
+            const firstPr = prs.length === 1;
+            return firstPr;
+
+      - name: Post Welcome Message
+        if: steps.check_first_pr.outputs.result == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🎉 Congratulations on your first merged pull request! Welcome to the community!'
+            });

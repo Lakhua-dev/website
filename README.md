@@ -60,6 +60,8 @@ Build static files on /out folder
 ```
 yarn build
 ```
+#### Bot Added
+
 #### Testing
 
 Formatting
